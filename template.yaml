@@ -22,6 +22,7 @@ Resources:
                     Properties:
                         Path: /tasks
                         Method: get
+                        
     CreateTaskFunction:
         Type: AWS::Serverless::Function
         Properties:
@@ -36,6 +37,33 @@ Resources:
                     Properties:
                         Path: /tasks
                         Method: post
+                        
+    DetailTaskFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            FunctionName: DetailTask
+            Description:  Detail task
+            Role: arn:aws:iam::063257378709:role/LambdaExecution
+            CodeUri: detail-task/
+            Handler: main.lambdaHandler
+            Layers: 
+                - !Ref BoomLayer
+            Events:
+                DetailTaskAPI:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /tasks/{id}
+                        Method: get
+    BoomLayer:
+        Type: AWS::Serverless::LayerVersion
+        Properties:
+            LayerName: Boom
+            Description: Layer that includes the Boom library
+            ContentUri: lambda-layers/boom-layer.zip
+            CompatibleRuntimes: 
+                - nodejs12.x
+            LicenseInfo: MIT
+            RetentionPolicy: Delete
 
 Outputs:
     # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -53,3 +81,14 @@ Outputs:
     CreateTaskFunction:
         Description: 'CreateTask Lambda Function ARN'
         Value: !GetAtt CreateTaskFunction.Arn
+    DetailTaskAPI:
+        Description: 'API Gateway endpoint URL for Prod stage for DetailTask function'
+        Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/'
+    DetailTaskFunction:
+        Description: 'DetailTask Lambda Function ARN'
+        Value: !GetAtt DetailTaskFunction.Arn
+    BoomLayerARN:
+        Value: !Ref BoomLayer
+        Description: BoomLayer ARN
+        Export:
+            Name: boom-layer-arn

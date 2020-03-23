@@ -13,21 +13,32 @@
 exports.lambdaHandler = async (event, context) => {
     try {
         // TODO DB
-    
+
+        const task = {
+            id: 1,
+            title: 'Whatch 6th season of B99',
+            done: false
+        };
         
-        const task = JSON.parse(event.body);
-        
-        response = {
-            statusCode: 201,
-            body: JSON.stringify({
-                message: 'Created!',
-                data: task
-            })
+        if (+event.pathParameters.id > 3){
+            const Boom = require('boom');
+            response = {
+                body: JSON.stringify(Boom.notFound('Task not found').output),
+                statusCode: 404
+            }
         }
+        else {
+            response = {
+                statusCode: 200,
+                body: JSON.stringify({
+                    data: task
+                })
+            }
+        };
     } catch (err) {
         console.log(err);
         return err;
     }
 
-    return response
+    return response;
 };

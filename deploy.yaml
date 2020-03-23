@@ -25,7 +25,7 @@ Resources:
       FunctionName: CreateTask
       Description: Create a new task
       Role: arn:aws:iam::063257378709:role/LambdaExecution
-      CodeUri: s3://alpha-bucket-1234/0e33deba8992d1c96b2bdebd843639c9
+      CodeUri: s3://alpha-bucket-1234/3e4c33441d8f488d8f41116e2e1e3884
       Handler: main.lambdaHandler
       Events:
         CreateTaskAPI:
@@ -33,6 +33,32 @@ Resources:
           Properties:
             Path: /tasks
             Method: post
+  DetailTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DetailTask
+      Description: Detail task
+      Role: arn:aws:iam::063257378709:role/LambdaExecution
+      CodeUri: s3://alpha-bucket-1234/6d099cec1314e33968583da424bf9962
+      Handler: main.lambdaHandler
+      Layers:
+      - Ref: BoomLayer
+      Events:
+        DetailTaskAPI:
+          Type: Api
+          Properties:
+            Path: /tasks/{id}
+            Method: get
+  BoomLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: Boom
+      Description: Layer that includes the Boom library
+      ContentUri: s3://alpha-bucket-1234/114bc0ce3ddf21990d9d8ef76cf0a7cd
+      CompatibleRuntimes:
+      - nodejs12.x
+      LicenseInfo: MIT
+      RetentionPolicy: Delete
 Outputs:
   GetTasksAPI:
     Description: API Gateway endpoint URL for Prod stage for GetTasks function
@@ -54,3 +80,19 @@ Outputs:
       Fn::GetAtt:
       - CreateTaskFunction
       - Arn
+  DetailTaskAPI:
+    Description: API Gateway endpoint URL for Prod stage for DetailTask function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/
+  DetailTaskFunction:
+    Description: DetailTask Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - DetailTaskFunction
+      - Arn
+  BoomLayerARN:
+    Value:
+      Ref: BoomLayer
+    Description: BoomLayer ARN
+    Export:
+      Name: boom-layer-arn
