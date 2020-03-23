@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: nodejs12.x
+Resources:
+  GetTasksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GetTasks
+      Description: Get all tasks
+      Role: arn:aws:iam::063257378709:role/LambdaExecution
+      CodeUri: s3://alpha-bucket-1234/5dbaf593eeeafbca1c51d2e28f686410
+      Handler: main.lambdaHandler
+      Events:
+        GetTasksAPI:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: get
+  CreateTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CreateTask
+      Description: Create a new task
+      Role: arn:aws:iam::063257378709:role/LambdaExecution
+      CodeUri: s3://alpha-bucket-1234/0e33deba8992d1c96b2bdebd843639c9
+      Handler: main.lambdaHandler
+      Events:
+        CreateTaskAPI:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: post
+Outputs:
+  GetTasksAPI:
+    Description: API Gateway endpoint URL for Prod stage for GetTasks function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/
+  GetTasksFunction:
+    Description: GetTasks Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetTasksFunction
+      - Arn
+  CreateTaskAPI:
+    Description: API Gateway endpoint URL for Prod stage for CreateTask function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/
+  CreateTaskFunction:
+    Description: CreateTask Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - CreateTaskFunction
+      - Arn
