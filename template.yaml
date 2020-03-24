@@ -10,6 +10,8 @@ Globals:
 Resources:
     GetTasksFunction:
         Type: AWS::Serverless::Function
+        TracingConfig:
+            Mode: Active
         Properties:
             FunctionName: GetTasks
             Description: Get all tasks
@@ -25,6 +27,8 @@ Resources:
                         
     CreateTaskFunction:
         Type: AWS::Serverless::Function
+        TracingConfig:
+            Mode: Active
         Properties:
             FunctionName: CreateTask
             Description: Create a new task
@@ -40,6 +44,8 @@ Resources:
                         
     DetailTaskFunction:
         Type: AWS::Serverless::Function
+        TracingConfig:
+            Mode: Active
         Properties:
             FunctionName: DetailTask
             Description:  Detail task
