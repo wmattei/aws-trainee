@@ -1,23 +1,21 @@
 'use strict';
 
-const fetch = require('node-fetch');
+const main = require('./main');
 
 describe('Get tasks', () => {
     describe('without filters', () => {
         let response;
         beforeAll(async () => {
-            response = await fetch('http://localhost:3000/tasks').catch(
-                console.error
-            );
+            response = await main.lambdaHandler({ });
         });
 
         test('should contain length 3', async () => {
-            const task = await response.json();
-            expect(task.data.length).toBe(3);
+            const tasks = JSON.parse(response.body).data;
+            expect(tasks.length).toBe(3);
         });
 
         test('should have status code 200', () => {
-            expect(response.status).toBe(200);
+            expect(response.statusCode).toBe(200);
         });
     });
 

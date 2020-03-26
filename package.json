@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/wmattei/aws-trainee#readme",
   "devDependencies": {
-    "jest": "^25.2.0",
-    "node-fetch": "^2.6.0"
+    "boom": "^7.3.0",
+    "jest": "^25.2.0"
   }
 }

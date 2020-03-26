@@ -1,5 +1,5 @@
 'use strict';
-const fetch = require('node-fetch');
+const main = require('./main');
 
 describe('Creates a new task', () => {
     describe('With all data passed', () => {
@@ -9,19 +9,16 @@ describe('Creates a new task', () => {
         };
         let response;
         beforeAll(async () => {
-            response = await fetch('http://localhost:3000/tasks', {
-                method: 'POST',
-                body: JSON.stringify(task)
-            }).catch(console.error);
+            response = await main.lambdaHandler({ body: JSON.stringify(task) });
         });
         test('should return expected task', async () => {
-            const savedTask = await response.json();
+            const savedTask = await JSON.parse(response.body).data;
 
-            expect(savedTask.data).toStrictEqual(task);
+            expect(savedTask).toStrictEqual(task);
         });
 
         test('should have status code 201', () => {
-            expect(response.status).toBe(201);
+            expect(response.statusCode).toBe(201);
         });
     });
 });

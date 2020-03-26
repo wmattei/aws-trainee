@@ -1,4 +1,4 @@
 module.exports = {
-  verbose: true,
+  verbose: process.env.ENVIRONMENT !== 'prod',
   bail: 1
 };

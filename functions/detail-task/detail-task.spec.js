@@ -1,14 +1,13 @@
 'use strict';
 
-const fetch = require('node-fetch');
+const main = require('./main');
 
 describe('Details a task', () => {
     describe('With id 1', () => {
         let response;
         beforeAll(async () => {
-            response = await fetch('http://localhost:3000/tasks/1').catch(
-                console.error
-            );
+            const pathParameters = { id: 1 };
+            response = await main.lambdaHandler({ pathParameters });
         });
 
         test('should return expected task', async () => {
@@ -17,29 +16,28 @@ describe('Details a task', () => {
                 title: 'Whatch 6th season of B99',
                 done: false
             };
-            const task = await response.json();
-            expect(task.data).toStrictEqual(expectedTask);
+            const data = JSON.parse(response.body).data;
+            expect(data).toStrictEqual(expectedTask);
         });
 
         test('should have status code 200', () => {
-            expect(response.status).toBe(200);
+            expect(response.statusCode).toBe(200);
         });
     });
 
     describe('With id 4', () => {
         let response;
         beforeAll(async () => {
-            response = await fetch('http://localhost:3000/tasks/4').then(res =>
-                res.json()
-            );
+            const pathParameters = { id: 4 };
+            response = await main.lambdaHandler({ pathParameters });
         });
 
         test('should have status code 404', () => {
             expect(response.statusCode).toBe(404);
         });
 
-        test('should containe error message', () => {
-            expect(response.payload.message).toBe('Task not found');
+        test('should contain error message', () => {
+            expect(JSON.parse(response.body).payload.message).toBe('Task not found');
         });
     });
 });

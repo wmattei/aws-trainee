@@ -16,7 +16,6 @@ exports.lambdaHandler = async (event, context) => {
     
         
         const task = JSON.parse(event.body);
-        console.log(task)
         response = {
             statusCode: 201,
             body: JSON.stringify({

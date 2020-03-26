@@ -4,6 +4,8 @@ phases:
     pre_build:
         commands: 
             - sam validate
+            - npm install
+            - npm run test
     build: 
         commands:
             - sam package --template-file template.yaml --output-template-file deploy.yaml --s3-bucket $SAM_S3_BUCKET
