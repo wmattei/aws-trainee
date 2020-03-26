@@ -5,7 +5,8 @@ phases:
         commands: 
             - sam validate
             - npm install
-            - sam local start-api & npm run test
+            - sam local start-api
+            - npm run test
     build: 
         commands:
             - sam package --template-file template.yaml --output-template-file deploy.yaml --s3-bucket $SAM_S3_BUCKET
