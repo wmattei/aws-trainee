@@ -6,7 +6,7 @@ exports.lambdaHandler = async (event, context) => {
             {
                 id: 1,
                 title: 'Whatch 6th season of B99',
-                done: false
+                done: true
             },
             {
                 id: 2,
