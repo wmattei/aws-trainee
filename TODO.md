@@ -1,8 +1,8 @@
-- [X] Create Tests
-- [ ] Configure linter and prettier
-- [ ] Integrate with DynamoDB
-- [ ] Accept images on create task
-- [ ] Add trigger to optimize every image added to S3 bucket
-- [ ] Confiture SNS and SES to sen email on deploy
-- [X] Solve local use of `layers`
-- [X] Run tests on Code pipeline
+-   [x] Create Tests
+-   [x] Configure linter and prettier
+-   [ ] Integrate with DynamoDB
+-   [ ] Accept images on create task
+-   [ ] Add trigger to optimize every image added to S3 bucket
+-   [ ] Confiture SNS and SES to sen email on deploy
+-   [x] Solve local use of `layers`
+-   [x] Run tests on Code pipeline

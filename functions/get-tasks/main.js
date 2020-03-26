@@ -1,7 +1,8 @@
-exports.lambdaHandler = async (event, context) => {
+exports.lambdaHandler = async () => {
+    let response;
     try {
         // TODO DB
-        
+
         const tasks = [
             {
                 id: 1,
@@ -18,18 +19,18 @@ exports.lambdaHandler = async (event, context) => {
                 title: 'Find a cure for COVID-19',
                 done: true
             }
-        ]
-                
+        ];
+
         response = {
             statusCode: 200,
             body: JSON.stringify({
                 data: tasks
             })
-        }
+        };
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return err;
     }
 
-    return response
+    return response;
 };

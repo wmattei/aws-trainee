@@ -1,21 +1,27 @@
 {
-  "name": "todo-app",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "jest --config jest.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wmattei/aws-trainee.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wmattei/aws-trainee/issues"
-  },
-  "homepage": "https://github.com/wmattei/aws-trainee#readme",
-  "devDependencies": {
-    "boom": "^7.3.0",
-    "jest": "^25.2.0"
-  }
+    "name": "todo-app",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "jest --config jest.config.js",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "prettier": "prettier --check \"./**/*\"",
+        "prettier:fix": "prettier --write \"./**/*\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wmattei/aws-trainee.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/wmattei/aws-trainee/issues"
+    },
+    "homepage": "https://github.com/wmattei/aws-trainee#readme",
+    "devDependencies": {
+        "boom": "^7.3.0",
+        "jest": "^25.2.0",
+        "prettier": "1.19.1",
+        "eslint": "5.x.x"
+    }
 }

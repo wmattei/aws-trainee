@@ -6,7 +6,7 @@ describe('Get tasks', () => {
     describe('without filters', () => {
         let response;
         beforeAll(async () => {
-            response = await main.lambdaHandler({ });
+            response = await main.lambdaHandler({});
         });
 
         test('should contain length 3', async () => {
@@ -18,5 +18,4 @@ describe('Get tasks', () => {
             expect(response.statusCode).toBe(200);
         });
     });
-
 });
