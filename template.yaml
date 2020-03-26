@@ -53,7 +53,6 @@ Resources:
             CodeUri: functions/detail-task/
             Handler: main.lambdaHandler
             Layers: 
-                - !Ref BoomLayer
                 - arn:aws:lambda:sa-east-1:063257378709:layer:Boom:3
             Events:
                 DetailTaskAPI:

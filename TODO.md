@@ -5,4 +5,4 @@
 - [ ] Add trigger to optimize every image added to S3 bucket
 - [ ] Confiture SNS and SES to sen email on deploy
 - [X] Solve local use of `layers`
-- [ ] Run tests on Code pipeline
+- [X] Run tests on Code pipeline
