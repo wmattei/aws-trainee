@@ -16,7 +16,7 @@ Resources:
             FunctionName: GetTasks
             Description: Get all tasks
             Role: arn:aws:iam::063257378709:role/LambdaExecution
-            CodeUri: get-tasks/
+            CodeUri: functions/get-tasks/
             Handler: main.lambdaHandler
             Events:
                 GetTasksAPI:
@@ -33,7 +33,7 @@ Resources:
             FunctionName: CreateTask
             Description: Create a new task
             Role: arn:aws:iam::063257378709:role/LambdaExecution
-            CodeUri: create-task/
+            CodeUri: functions/create-task/
             Handler: main.lambdaHandler
             Events:
                 CreateTaskAPI:
@@ -50,10 +50,11 @@ Resources:
             FunctionName: DetailTask
             Description:  Detail task
             Role: arn:aws:iam::063257378709:role/LambdaExecution
-            CodeUri: detail-task/
+            CodeUri: functions/detail-task/
             Handler: main.lambdaHandler
             Layers: 
                 - !Ref BoomLayer
+                - arn:aws:lambda:sa-east-1:063257378709:layer:Boom:3
             Events:
                 DetailTaskAPI:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
