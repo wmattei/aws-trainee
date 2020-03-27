@@ -10,11 +10,12 @@ module.exports.initializateDynamoClient = newDynamo => {
 exports.lambdaHandler = async () => {
     let response;
     try {
-        const dbResponse = await dynamo.scan({
-            TableName: TABLE_NAME
-        }).promise();
+        const dbResponse = await dynamo
+            .scan({
+                TableName: TABLE_NAME
+            })
+            .promise();
 
-    
         response = {
             statusCode: 200,
             body: JSON.stringify({
