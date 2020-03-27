@@ -66,18 +66,6 @@ Resources:
                     Properties:
                         Path: /tasks/{id}
                         Method: get
-    TaskTable:
-        Type: AWS::DynamoDB:SimpleTable
-        TableName: tasks
-        Properties:
-            PrimaryKey:
-                Name: id
-                Type: String
-            ProvisionedThroughput: 
-                ReadCapacityUnits: 5
-                WriteCapacityUnits: 5
-            StreamSpecification:
-                StreamViewType: NEW_IMAGE
     
     BoomLayer:
         Type: AWS::Serverless::LayerVersion
