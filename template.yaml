@@ -41,6 +41,12 @@ Resources:
                     Properties:
                         Path: /tasks
                         Method: post
+                Stream:
+                    Type: DynamoDB
+                    Properties:
+                        Stream: !GetAtt TaskTable.StreamArn
+                        BatchSize: 100
+                        StartingPosition: TRIM_HORIZON
                         
     DetailTaskFunction:
         Type: AWS::Serverless::Function
@@ -60,6 +66,19 @@ Resources:
                     Properties:
                         Path: /tasks/{id}
                         Method: get
+    TaskTable:
+        Type: AWS::DynamoDB:SimpleTable
+        TableName: tasks
+        Properties:
+            PrimaryKey:
+                Name: id
+                Type: String
+            ProvisionedThroughput: 
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
+            StreamSpecification:
+                StreamViewType: NEW_IMAGE
+    
     BoomLayer:
         Type: AWS::Serverless::LayerVersion
         Properties:

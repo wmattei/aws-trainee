@@ -1,30 +1,24 @@
+const AWS = require('aws-sdk');
+let dynamo = new AWS.DynamoDB.DocumentClient();
+
+const TABLE_NAME = 'tasks';
+
+module.exports.initializateDynamoClient = newDynamo => {
+    dynamo = newDynamo;
+};
+
 exports.lambdaHandler = async () => {
     let response;
     try {
-        // TODO DB
+        const dbResponse = await dynamo.scan({
+            TableName: TABLE_NAME
+        }).promise();
 
-        const tasks = [
-            {
-                id: 1,
-                title: 'Whatch 6th season of B99',
-                done: true
-            },
-            {
-                id: 2,
-                title: 'Whatch 2nd season of The OA',
-                done: false
-            },
-            {
-                id: 3,
-                title: 'Find a cure for COVID-19',
-                done: true
-            }
-        ];
-
+    
         response = {
             statusCode: 200,
             body: JSON.stringify({
-                data: tasks
+                data: dbResponse.Items
             })
         };
     } catch (err) {

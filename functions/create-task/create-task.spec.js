@@ -1,5 +1,6 @@
 'use strict';
 const main = require('./main');
+const AWS = require('aws-sdk');
 
 describe('Creates a new task', () => {
     describe('With all data passed', () => {

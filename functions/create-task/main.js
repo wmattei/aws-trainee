@@ -1,26 +1,37 @@
-/**
- *
- * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
- * @param {Object} event - API Gateway Lambda Proxy Input Format
- *
- * Context doc: https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
- * @param {Object} context
- *
- * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
- * @returns {Object} object - API Gateway Lambda Proxy Output Format
- *
- */
+const AWS = require('aws-sdk');
+let dynamo = new AWS.DynamoDB.DocumentClient();
+
+const TABLE_NAME = 'tasks';
+
+const uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+};
+
+module.exports.initializateDynamoClient = newDynamo => {
+    dynamo = newDynamo;
+};
+
 exports.lambdaHandler = async event => {
     let response;
     try {
-        // TODO DB
-
         const task = JSON.parse(event.body);
+
+        await dynamo
+            .put({
+                TableName: TABLE_NAME,
+                Item: { ...task, id: uuidv4() }
+            })
+            .promise();
+
         response = {
             statusCode: 201,
             body: JSON.stringify({
                 message: 'Created!',
-                data: task
+                data: { ...task, id: uuidv4() }
             })
         };
     } catch (err) {
