@@ -41,12 +41,6 @@ Resources:
                     Properties:
                         Path: /tasks
                         Method: post
-                Stream:
-                    Type: DynamoDB
-                    Properties:
-                        Stream: !GetAtt TaskTable.StreamArn
-                        BatchSize: 100
-                        StartingPosition: TRIM_HORIZON
                         
     DetailTaskFunction:
         Type: AWS::Serverless::Function
