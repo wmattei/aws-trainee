@@ -36,7 +36,7 @@ Resources:
             CodeUri: functions/create-task/
             Handler: main.lambdaHandler
             Layers: 
-                - arn:aws:lambda:sa-east-1:063257378709:layer:Utils:1
+                - !Ref UtilsLayer
             Events:
                 CreateTaskAPI:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
