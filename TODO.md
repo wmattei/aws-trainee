@@ -1,10 +1,11 @@
 -   [x] Create Tests
 -   [x] Configure linter and prettier
 -   [x] Integrate with DynamoDB
+-   [x] Solve tests with sdk
+-   [x] Solve local use of `layers`
+-   [x] Run tests on Code pipeline
+-   [ ] Run DynamoDB locally
 -   [ ] Accept images on create task
 -   [ ] Add trigger to optimize every image added to S3 bucket
 -   [ ] Confiture SNS and SES to sen email on deploy
--   [x] Solve local use of `layers`
--   [x] Run tests on Code pipeline
 -   [ ] Integrate with Cognito
--   [ ] Solve tests with sdk

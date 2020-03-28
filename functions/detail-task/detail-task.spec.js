@@ -1,9 +1,22 @@
 'use strict';
-
-const main = require('./main');
+const AWSMock = require('aws-sdk-mock');
 
 describe('Details a task', () => {
-    describe('With id 1', () => {
+    AWSMock.mock('DynamoDB.DocumentClient', 'get', (params, callback) => {
+        if (params.Key.id === 1)
+            callback(null, {
+                Item: {
+                    id: 1,
+                    title: 'Whatch 6th season of B99',
+                    done: false
+                }
+            });
+        callback(null, { Item: null });
+    });
+
+    const main = require('./main');
+
+    describe('Should find a task', () => {
         let response;
         beforeAll(async () => {
             const pathParameters = { id: 1 };
