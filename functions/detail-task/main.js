@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-const awsOptions = { endpoint: process.env.AWS_SAM_LOCAL === 'true' && 'http://dynamodb:8000' };
+const awsOptions = { endpoint: process.env.AWS_SAM_LOCAL === 'true' ? 'http://dynamodb:8000' : null };
 const dynamo = new AWS.DynamoDB.DocumentClient(awsOptions);
 
 const TABLE_NAME = 'tasks';
