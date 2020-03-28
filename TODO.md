@@ -5,7 +5,7 @@
 -   [x] Solve local use of `layers`
 -   [x] Run tests on Code pipeline
 -   [x] Run DynamoDB locally
--   [ ] Use uuid lib
+-   [x] Use uuid lib
 -   [ ] Create delete endpoint
 -   [ ] Create update endpoint
 -   [ ] Accept images on create task

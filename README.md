@@ -13,5 +13,5 @@ docker run -d -v "$PWD":/dynamodb_local_db -p 8000:8000 --network lambda-local -
 -   Start API localy
 
 ```shell
-DYNAMO_ENDPOINT=http://dynamodb:8000 sam local start-api --docker-network lambda-local
+sam local start-api --docker-network lambda-local
 ```
