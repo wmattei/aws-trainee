@@ -63,7 +63,7 @@ Resources:
                         Path: /tasks/{id}
                         Method: get
                         
-    DetailTaskFunction:
+    DeleteTaskFunction:
         Type: AWS::Serverless::Function
         TracingConfig:
             Mode: Active
