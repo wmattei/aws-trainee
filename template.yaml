@@ -68,7 +68,7 @@ Resources:
         Properties:
             LayerName: Utils
             Description: Layer that includes utils libraries
-            ContentUri: lambda-layers/utils/util-modules-layer.zip
+            ContentUri: lambda-layers/utils
             CompatibleRuntimes: 
                 - nodejs12.x
             LicenseInfo: MIT
