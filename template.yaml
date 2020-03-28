@@ -62,6 +62,25 @@ Resources:
                     Properties:
                         Path: /tasks/{id}
                         Method: get
+                        
+    DetailTaskFunction:
+        Type: AWS::Serverless::Function
+        TracingConfig:
+            Mode: Active
+        Properties:
+            FunctionName: DeleteTask
+            Description:  Delete task
+            Role: arn:aws:iam::063257378709:role/LambdaExecution
+            CodeUri: functions/delete-task/
+            Handler: main.lambdaHandler
+            Layers: 
+                - !Ref UtilsLayer
+            Events:
+                DeleteTaskAPI:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /tasks/{id}
+                        Method: delete
     
     UtilsLayer:
         Type: AWS::Serverless::LayerVersion
@@ -84,18 +103,29 @@ Outputs:
     GetTasksFunction:
         Description: 'GetTasks Lambda Function ARN'
         Value: !GetAtt GetTasksFunction.Arn
+    
     CreateTaskAPI:
         Description: 'API Gateway endpoint URL for Prod stage for CreateTask function'
         Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/'
     CreateTaskFunction:
         Description: 'CreateTask Lambda Function ARN'
         Value: !GetAtt CreateTaskFunction.Arn
+    
     DetailTaskAPI:
         Description: 'API Gateway endpoint URL for Prod stage for DetailTask function'
         Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/'
     DetailTaskFunction:
         Description: 'DetailTask Lambda Function ARN'
         Value: !GetAtt DetailTaskFunction.Arn
+    
+    DeleteTaskAPI:
+        Description: 'API Gateway endpoint URL for Prod stage for DeleteTask function'
+        Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/'
+    DeleteTaskFunction:
+        Description: 'DeleteTask Lambda Function ARN'
+        Value: !GetAtt DeleteTaskFunction.Arn
+    
+    
     UtilsLayerARN:
         Value: !Ref UtilsLayer
         Description: UtilsLayer ARN

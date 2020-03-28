@@ -38,7 +38,7 @@ describe('Details a task', () => {
         });
     });
 
-    describe('With id 4', () => {
+    describe('Should not find a task', () => {
         let response;
         beforeAll(async () => {
             const pathParameters = { id: 4 };
