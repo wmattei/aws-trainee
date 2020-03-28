@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 
-let dynamo = new AWS.DynamoDB.DocumentClient();
+const awsOptions = { endpoint: process.env.AWS_SAM_LOCAL === 'true' && 'http://dynamodb:8000' };
+const dynamo = new AWS.DynamoDB.DocumentClient(awsOptions);
 
 const TABLE_NAME = 'tasks';
 
@@ -12,19 +13,15 @@ const uuidv4 = () => {
     });
 };
 
-module.exports.initializateDynamoClient = newDynamo => {
-    dynamo = newDynamo;
-};
-
 exports.lambdaHandler = async event => {
     let response;
     try {
         const task = JSON.parse(event.body);
-
+        new AWS.DynamoDB.DocumentClient();
         await dynamo
             .put({
                 TableName: TABLE_NAME,
-                Item: { ...task, id: uuidv4() }
+                Item: { ...task, Id: uuidv4() }
             })
             .promise();
 

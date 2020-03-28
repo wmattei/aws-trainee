@@ -1,11 +1,8 @@
 const AWS = require('aws-sdk');
-let dynamo = new AWS.DynamoDB.DocumentClient();
+const awsOptions = { endpoint: process.env.AWS_SAM_LOCAL === 'true' && 'http://dynamodb:8000' };
+const dynamo = new AWS.DynamoDB.DocumentClient(awsOptions);
 
 const TABLE_NAME = 'tasks';
-
-module.exports.initializateDynamoClient = newDynamo => {
-    dynamo = newDynamo;
-};
 
 exports.lambdaHandler = async event => {
     let response;
@@ -13,10 +10,9 @@ exports.lambdaHandler = async event => {
         const dbResponse = await dynamo
             .get({
                 TableName: TABLE_NAME,
-                Key: { id: event.pathParameters.id }
+                Key: { Id: event.pathParameters.id }
             })
             .promise();
-
         if (!dbResponse.Item) {
             const Boom = require('boom');
             response = {

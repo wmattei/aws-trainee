@@ -3,7 +3,7 @@ const AWSMock = require('aws-sdk-mock');
 
 describe('Details a task', () => {
     AWSMock.mock('DynamoDB.DocumentClient', 'get', (params, callback) => {
-        if (params.Key.id === 1)
+        if (params.Key.Id === 1)
             callback(null, {
                 Item: {
                     id: 1,
