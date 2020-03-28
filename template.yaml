@@ -35,6 +35,8 @@ Resources:
             Role: arn:aws:iam::063257378709:role/LambdaExecution
             CodeUri: functions/create-task/
             Handler: main.lambdaHandler
+            Layers: 
+                - arn:aws:lambda:sa-east-1:063257378709:layer:Utils:1
             Events:
                 CreateTaskAPI:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -53,7 +55,7 @@ Resources:
             CodeUri: functions/detail-task/
             Handler: main.lambdaHandler
             Layers: 
-                - arn:aws:lambda:sa-east-1:063257378709:layer:Boom:3
+                - arn:aws:lambda:sa-east-1:063257378709:layer:Utils:1
             Events:
                 DetailTaskAPI:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -61,12 +63,12 @@ Resources:
                         Path: /tasks/{id}
                         Method: get
     
-    BoomLayer:
+    UtilsLayer:
         Type: AWS::Serverless::LayerVersion
         Properties:
-            LayerName: Boom
-            Description: Layer that includes the Boom library
-            ContentUri: lambda-layers/boom-layer.zip
+            LayerName: Utils
+            Description: Layer that includes utils libraries
+            ContentUri: lambda-layers/util-modules-layer.zip
             CompatibleRuntimes: 
                 - nodejs12.x
             LicenseInfo: MIT
@@ -94,8 +96,8 @@ Outputs:
     DetailTaskFunction:
         Description: 'DetailTask Lambda Function ARN'
         Value: !GetAtt DetailTaskFunction.Arn
-    BoomLayerARN:
-        Value: !Ref BoomLayer
-        Description: BoomLayer ARN
+    UtilsLayerARN:
+        Value: !Ref UtilsLayer
+        Description: UtilsLayer ARN
         Export:
-            Name: boom-layer-arn
+            Name: utils-layer-arn
