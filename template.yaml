@@ -81,6 +81,25 @@ Resources:
                     Properties:
                         Path: /tasks/{id}
                         Method: delete
+                        
+    UpdateTaskFunction:
+        Type: AWS::Serverless::Function
+        TracingConfig:
+            Mode: Active
+        Properties:
+            FunctionName: UpdateTask
+            Description:  Update task
+            Role: arn:aws:iam::063257378709:role/LambdaExecution
+            CodeUri: functions/update-task/
+            Handler: main.lambdaHandler
+            Layers: 
+                - !Ref UtilsLayer
+            Events:
+                UpdateTaskAPI:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /tasks/{id}
+                        Method: put
     
     UtilsLayer:
         Type: AWS::Serverless::LayerVersion
@@ -124,6 +143,13 @@ Outputs:
     DeleteTaskFunction:
         Description: 'DeleteTask Lambda Function ARN'
         Value: !GetAtt DeleteTaskFunction.Arn
+    
+    UpdateTaskAPI:
+        Description: 'API Gateway endpoint URL for Prod stage for UpdateTask function'
+        Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasks/'
+    UpdateTaskFunction:
+        Description: 'UpdateTask Lambda Function ARN'
+        Value: !GetAtt UpdateTaskFunction.Arn
     
     
     UtilsLayerARN:

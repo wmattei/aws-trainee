@@ -6,7 +6,7 @@
 -   [x] Run tests on Code pipeline
 -   [x] Run DynamoDB locally
 -   [x] Use uuid lib
--   [ ] Create delete endpoint
+-   [x] Create delete endpoint
 -   [ ] Create update endpoint
 -   [ ] Accept images on create task
 -   [ ] Add trigger to optimize every image added to S3 bucket
